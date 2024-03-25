@@ -87,12 +87,25 @@
 }
 
 .intro__message {
+  position: relative;
   flex: none;
   width: 50.9rem;
   max-width: 50%;
   text-transform: uppercase;
   font-size: 2.4rem;
   line-height: 1.27;
+  animation: fadeIn 1s;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      top: 40px;
+    }
+    to {
+      opacity: 1;
+      top: 0;
+    }
+  }
 
   @media (min-width: $stop-scaling) {
     width: 509px;
