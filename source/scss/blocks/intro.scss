@@ -94,18 +94,11 @@
   text-transform: uppercase;
   font-size: 2.4rem;
   line-height: 1.27;
-  animation: fadeIn 1s;
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      top: 40px;
-    }
-    to {
-      opacity: 1;
-      top: 0;
-    }
-  }
+  transform: translateY(20px);
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
 
   @media (min-width: $stop-scaling) {
     width: 509px;
@@ -146,6 +139,11 @@
       height: 1.1rem;
     }
   }
+}
+
+.intro__message__end {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .intro__label {

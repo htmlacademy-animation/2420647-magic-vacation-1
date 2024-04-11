@@ -250,8 +250,8 @@
       bottom: 0;
       width: 0%;
       height: 2px;
-      background-color: $c-light;
-      left: 0;
+      background-color: $c-purple;
+      right: 0;
       transition-duration: 0.5s;
       transition-property: width;
 
@@ -268,10 +268,16 @@
       }
     }
 
+    &.active::after {
+      background-color: $c-light;
+    }
+
     &.active,
     &:hover {
-      &::after {
+      &::after,
+      &::before {
         display: block;
+        left: 0;
         width: 100%;
       }
     }
@@ -280,7 +286,6 @@
     &:focus {
       color: $c-purple;
       outline: none;
-
       &::after {
         opacity: 1;
         background-color: $c-purple;

@@ -17,6 +17,7 @@
   height: 4rem;
   color: $c-dark;
   border-radius: 50%;
+  transition-property: opacity, color;
   transition-duration: 0.2s;
 
   @media (max-width: $tablet) and (orientation: portrait) {
@@ -36,6 +37,7 @@
     background-color: $c-light;
     border: 2px solid $c-light;
     z-index: -1;
+    transition-property: opacity, color;
     transition-duration: 0.2s;
   }
 
@@ -147,16 +149,19 @@
 
   .social-block--active & li:nth-child(1) {
     opacity: 1;
+    transition-property: opacity;
     transition-duration: 1s;
   }
 
   .social-block--active & li:nth-child(2) {
     opacity: 1;
+    transition-property: opacity;
     transition-duration: 2s;
   }
 
   .social-block--active & li:nth-child(3) {
     opacity: 1;
+    transition-property: opacity;
     transition-duration: 3s;
   }
 
@@ -187,6 +192,8 @@
   color: $c-light;
   border: 2px solid transparent;
   border-radius: 50%;
+  transition-property: color;
+  transition-duration: 0.5s;
 
   @media (min-width: $stop-scaling) {
     width: 40px;

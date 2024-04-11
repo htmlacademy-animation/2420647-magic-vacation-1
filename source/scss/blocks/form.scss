@@ -31,9 +31,10 @@
 }
 
 .form__field {
+  opacity: 0;
   flex: none;
   margin-right: 3rem;
-  padding: 0 5.6rem;
+  //padding: 0 5.6rem;
   height: 6rem;
   width: calc(100% - 21rem);
   text-transform: uppercase;
@@ -44,16 +45,10 @@
   border: 0;
   border-radius: 3rem;
   outline: none;
-  animation: widtgLeft 1s ease forwards;
-
-  @keyframes widtgLeft {
-    from {
-      width: 0;
-    }
-    to {
-      width: calc(100% - 21rem);
-    }
-  }
+  width: 0;
+  transition-duration: 1s;
+  transition-property: width;
+  transition-timing-function: ease-in-out;
 
   &:focus {
     border: 1px solid $c-purple;
@@ -66,15 +61,6 @@
     width: calc(100% - 210px);
     font-size: 24px;
     border-radius: 30px;
-    animation: widtgLeft 1s ease forwards;
-    @keyframes widtgLeft {
-      from {
-        width: 0;
-      }
-      to {
-        width: calc(100% - 210px);
-      }
-    }
   }
 
   @media (orientation: portrait) {
@@ -83,28 +69,10 @@
     width: calc(100% - 5rem);
     height: 4rem;
     font-size: 1.6rem;
-    animation: widtgLeft 1s ease forwards;
-    @keyframes widtgLeft {
-      from {
-        width: 0;
-      }
-      to {
-        width: calc(100% - 5rem);
-      }
-    }
   }
 
   @media (max-width: $tablet) and (orientation: landscape) {
     width: calc(100% - 9rem);
-    animation: widtgLeft 1s ease forwards;
-    @keyframes widtgLeft {
-      from {
-        width: 0;
-      }
-      to {
-        width: calc(100% - 9rem);
-      }
-    }
   }
 
   @media (max-width: $mobile) and (orientation: landscape) {
@@ -113,15 +81,23 @@
     width: calc(100% - 5rem);
     height: 4rem;
     font-size: 1.6rem;
-    animation: widtgLeft 1s ease forwards;
-    @keyframes widtgLeft {
-      from {
-        width: 0;
-      }
-      to {
-        width: calc(100% - 5rem);
-      }
-    }
+  }
+}
+
+.form__field__end {
+  width: calc(100% - 210px);
+  opacity: 1;
+  @media (min-width: $stop-scaling) {
+    width: calc(100% - 210px);
+  }
+  @media (orientation: portrait) {
+    width: calc(100% - 5rem);
+  }
+  @media (max-width: $tablet) and (orientation: landscape) {
+    width: calc(100% - 9rem);
+  }
+  @media (max-width: $mobile) and (orientation: landscape) {
+    width: calc(100% - 5rem);
   }
 }
 
