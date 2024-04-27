@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: end;
 }
 
 .form__label {
@@ -43,6 +44,11 @@
   border: 0;
   border-radius: 3rem;
   outline: none;
+  transition-duration: 0.5s;
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+  transform: scaleX(0);
+  transform-origin: right;
 
   &:focus {
     border: 1px solid $c-purple;
@@ -78,8 +84,13 @@
   }
 }
 
+.form__field__end {
+  transform: scaleX(1);
+}
+
 .form__button {
   flex-grow: 1;
+  max-width: max-content;
 
   @media (orientation: portrait) {
     position: relative;
@@ -88,6 +99,7 @@
     width: 4rem;
     height: 4rem;
     font-size: 0;
+    max-width: none;
   }
 
   @media (max-width: $tablet) and (orientation: landscape) {
@@ -97,11 +109,13 @@
     width: 6rem;
     height: 6rem;
     font-size: 0;
+    max-width: none;
   }
 
   @media (max-width: $mobile) and (orientation: landscape) {
     width: 4rem;
     height: 4rem;
+    max-width: none;
   }
 
   svg {
