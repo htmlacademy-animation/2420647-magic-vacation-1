@@ -31,10 +31,9 @@
 }
 
 .form__field {
-  opacity: 0;
   flex: none;
   margin-right: 3rem;
-  //padding: 0 5.6rem;
+  padding: 0 5.6rem;
   height: 6rem;
   width: calc(100% - 21rem);
   text-transform: uppercase;
@@ -45,10 +44,11 @@
   border: 0;
   border-radius: 3rem;
   outline: none;
-  width: 0;
-  transition-duration: 1s;
-  transition-property: width;
+  transition-duration: 0.5s;
+  transition-property: transform;
   transition-timing-function: ease-in-out;
+  transform: scaleX(0);
+  transform-origin: right;
 
   &:focus {
     border: 1px solid $c-purple;
@@ -85,20 +85,7 @@
 }
 
 .form__field__end {
-  width: calc(100% - 210px);
-  opacity: 1;
-  @media (min-width: $stop-scaling) {
-    width: calc(100% - 210px);
-  }
-  @media (orientation: portrait) {
-    width: calc(100% - 5rem);
-  }
-  @media (max-width: $tablet) and (orientation: landscape) {
-    width: calc(100% - 9rem);
-  }
-  @media (max-width: $mobile) and (orientation: landscape) {
-    width: calc(100% - 5rem);
-  }
+  transform: scaleX(1);
 }
 
 .form__button {
