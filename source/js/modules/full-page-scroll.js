@@ -61,24 +61,45 @@ export default class FullPageScroll {
   }
 
   changeVisibilityDisplay() {
-    this.screenElements.forEach((screen) => {
-      screen.classList.add(`screen--hidden`);
-      screen.classList.remove(`active`);
-    });
-    this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
-    setTimeout(() => {
-      this.screenElements[this.activeScreen].classList.add(`active`);
-      let formField = document.querySelector(".form__field");
-      if (
-        this.screenElements[this.activeScreen].classList.contains(
-          "screen--game"
-        )
-      ) {
-        formField.classList.add("form__field__end");
-      } else {
-        formField.classList.remove("form__field__end");
-      }
-    }, 100);
+    let filling = document.querySelector(".filling-prize");
+    if (
+      this.screenElements[this.activeScreen].classList.contains(
+        "screen--prizes"
+      )
+    ) {
+      console.log(1);
+      filling.classList.add("visible");
+      setTimeout(() => {
+        this.screenElements.forEach((screen) => {
+          screen.classList.add(`screen--hidden`);
+          screen.classList.remove(`active`);
+        });
+        this.screenElements[this.activeScreen].classList.remove(
+          `screen--hidden`
+        );
+        filling.classList.remove("visible");
+      }, 550);
+    } else {
+      filling.classList.remove("visible");
+      this.screenElements.forEach((screen) => {
+        screen.classList.add(`screen--hidden`);
+        screen.classList.remove(`active`);
+      });
+      this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
+      setTimeout(() => {
+        this.screenElements[this.activeScreen].classList.add(`active`);
+        let formField = document.querySelector(".form__field");
+        if (
+          this.screenElements[this.activeScreen].classList.contains(
+            "screen--game"
+          )
+        ) {
+          formField.classList.add("form__field__end");
+        } else {
+          formField.classList.remove("form__field__end");
+        }
+      }, 100);
+    }
   }
 
   changeActiveMenuItem() {
