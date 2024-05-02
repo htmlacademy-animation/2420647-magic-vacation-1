@@ -37,8 +37,14 @@
     background-color: $c-light;
     border: 2px solid $c-light;
     z-index: -1;
-    transition-property: opacity, color;
-    transition-duration: 0.2s;
+    transition-property: opacity, color, transform;
+    transition-duration: 0.2s, 0.2s, 0.5s;
+    transform-origin: center;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  .loaded &::before {
+    transform: translate(-50%, -50%) scale(1);
   }
 
   svg {

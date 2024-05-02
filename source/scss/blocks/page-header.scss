@@ -35,6 +35,9 @@
   padding: 1rem 0;
   width: 10rem;
   color: $c-light;
+  transition: transform 0.5s cubic-bezier(0.44, 0.99, 0.87, 0.98);
+  opacity: 0;
+  transform: translateX(-40px);
 
   @media (min-width: $stop-scaling) {
     top: -5px;
@@ -69,6 +72,11 @@
     width: 100%;
     height: auto;
   }
+}
+
+.loaded .page-header__logo {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .page-header__toggler {
@@ -130,6 +138,8 @@
 .page-header__nav {
   display: flex;
   align-items: center;
+  transition: opacity 0.5s linear;
+  opacity: 0;
 
   @media (max-width: $tablet) and (orientation: portrait) {
     position: fixed;
@@ -168,6 +178,10 @@
       transform: translateX(0);
     }
   }
+}
+
+.loaded .page-header__nav {
+  opacity: 1;
 }
 
 .page-header__menu {
@@ -271,7 +285,7 @@
       background-color: $c-light;
     }
 
-    &.active,
+    .loaded &.active,
     &:hover {
       &::after,
       &::before {
