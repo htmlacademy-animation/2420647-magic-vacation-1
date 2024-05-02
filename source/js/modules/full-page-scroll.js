@@ -67,7 +67,6 @@ export default class FullPageScroll {
         "screen--prizes"
       )
     ) {
-      console.log(1);
       filling.classList.add("visible");
       setTimeout(() => {
         this.screenElements.forEach((screen) => {
