@@ -37,7 +37,7 @@
   color: $c-light;
   transition: transform 0.5s cubic-bezier(0.44, 0.99, 0.87, 0.98);
   opacity: 0;
-  transform: translateX(-40px);
+  transform: translateX(-4rem);
 
   @media (min-width: $stop-scaling) {
     top: -5px;

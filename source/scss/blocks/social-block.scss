@@ -40,6 +40,7 @@
     transition-property: opacity, color, transform;
     transition-duration: 0.2s, 0.2s, 0.5s;
     transform-origin: center;
+    transition-timing-function: cubic-bezier(0.6, -0.25, 0.34, 1.51);
     transform: translate(-50%, -50%) scale(0);
   }
 
