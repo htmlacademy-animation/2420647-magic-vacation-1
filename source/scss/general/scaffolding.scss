@@ -99,3 +99,81 @@ img {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+.tranformatedText {
+  display: flex;
+  flex-direction: column;
+
+  .line {
+    overflow: hidden;
+    display: flex;
+    span {
+      & {
+        transition: transform 1s linear;
+        transform: translateY(120%);
+        animation-fill-mode: forwards;
+        transform-origin: bottom;
+        animation-name: upLetter;
+        animation-duration: 1s;
+      }
+    }
+  }
+
+  .line:first-child {
+    padding-top: 20px;
+    span {
+      &:nth-child(2),
+      &:nth-child(4),
+      &:nth-child(6) {
+        animation-delay: 150ms;
+      }
+
+      &:nth-child(1),
+      &:nth-child(5),
+      &:nth-child(9),
+      &:nth-child(11) {
+        animation-delay: 300ms;
+      }
+
+      &:nth-child(1),
+      &:nth-child(5) {
+        animation-delay: 450ms;
+      }
+
+      &:nth-child(8) {
+        animation-delay: 600ms;
+      }
+    }
+  }
+
+  .line:nth-child(2) {
+    padding-top: 10px;
+    span {
+      &:nth-child(4) {
+        animation-delay: 700ms;
+      }
+      &:nth-child(6) {
+        animation-delay: 750ms;
+      }
+      &:nth-child(3) {
+        animation-delay: 800ms;
+      }
+      &:nth-child(1),
+      &:nth-child(5) {
+        animation-delay: 850ms;
+      }
+      &:nth-child(2) {
+        animation-delay: 900ms;
+      }
+    }
+  }
+
+  @keyframes upLetter {
+    0% {
+      transform: translateY(120%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}

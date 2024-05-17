@@ -1,4 +1,5 @@
 import throttle from "lodash/throttle";
+import transformativeText from "./transformative-text";
 
 export default class FullPageScroll {
   constructor() {
