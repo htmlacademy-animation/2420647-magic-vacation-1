@@ -1,6 +1,6 @@
 export default function transformativeText(element) {
   let transformativeElem = document.querySelector(element);
-  transformativeElem.classList.add("tranformatedText");
+  transformativeElem.classList.add("transformatedText");
 
   // Получаем текст из элемента
   let text = transformativeElem.textContent;
@@ -19,32 +19,38 @@ export default function transformativeText(element) {
 
   // Разбиваем текст на слова
   let words = text.split(/\s+/);
-
   let currentLine = document.createElement("span");
   currentLine.classList.add("line");
   transformativeElem.appendChild(currentLine);
 
-  // Создаем обертку для каждого слова
+  const createLetterWrapper = (letter, isLastInWord) => {
+    const letterWrapper = document.createElement("span");
+    letterWrapper.textContent = letter + (isLastInWord ? " " : "");
+    letterWrapper.style.animationDelay = `${Math.random() * 1000}ms`;
+    return letterWrapper;
+  };
+
+  // Создаем обертку для каждой буквы
   words.forEach((word) => {
-    word.split("").forEach((letter, index) => {
-      let letterWrapper = document.createElement("span");
-      if (index === word.split("").length - 1) {
-        letterWrapper.textContent = letter + " ";
-      } else {
-        letterWrapper.textContent = letter;
-      }
+    const letters = word.split("");
+    letters.forEach((letter, index) => {
+      const letterWrapper = createLetterWrapper(
+        letter,
+        index === letters.length - 1
+      );
       currentLine.appendChild(letterWrapper);
     });
+
     tempElem.textContent = currentLine.textContent + " " + word;
 
     // Проверяем, переносится ли текст
     if (tempElem.offsetWidth > transformativeElem.offsetWidth) {
+      //document.body.removeChild(tempElem);
       currentLine = document.createElement("span");
       currentLine.classList.add("line");
       transformativeElem.appendChild(currentLine);
     }
   });
-
   // Удаляем временный элемент
   document.body.removeChild(tempElem);
 }
