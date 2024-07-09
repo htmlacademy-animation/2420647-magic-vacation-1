@@ -99,3 +99,40 @@ img {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+.transformatedText {
+  display: flex;
+  flex-direction: column;
+
+  .line {
+    overflow: hidden;
+    display: flex;
+    span {
+      & {
+        transition: transform 1s linear;
+        transform: translateY(120%);
+        animation-fill-mode: forwards;
+        transform-origin: bottom;
+        animation-name: upLetter;
+        animation-duration: 1s;
+      }
+    }
+  }
+
+  .line:first-child {
+    padding-top: 20px;
+  }
+
+  .line:nth-child(2) {
+    padding-top: 10px;
+  }
+
+  @keyframes upLetter {
+    0% {
+      transform: translateY(120%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
