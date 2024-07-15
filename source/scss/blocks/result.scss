@@ -4,6 +4,7 @@
   flex-direction: column;
   padding: 15rem 5.7rem 6rem;
   width: 100%;
+  position: relative;
 
   @media (min-width: $stop-scaling) {
     padding: 150px 57px 60px;
@@ -41,6 +42,8 @@
 }
 
 .result__image {
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -241,6 +244,11 @@
   font-size: 4.8rem;
   line-height: 0.906;
   letter-spacing: -0.01em;
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-timing-function: $easing-decelerate, ease-in;
+  transition-duration: $duration-long, $duration-short;
+  transition-delay: $delay-medium, $delay-medium;
 
   @media (min-width: $stop-scaling) {
     margin-bottom: 20px;
@@ -369,6 +377,25 @@
 
 .result__form {
   margin-top: auto;
+  position: absolute;
+  bottom: 6rem;
+  width: 100%;
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-timing-function: $easing-decelerate, ease-in;
+  transition-duration: $duration-long, $duration-short;
+  transition-delay: $delay-medium, $delay-medium;
+
+  .form--result {
+    gap: 20px;
+    .form__wrapper {
+      width: 100%;
+      input {
+        transform: none;
+        width: 100%;
+      }
+    }
+  }
 }
 
 .result--trip,
@@ -376,6 +403,11 @@
   .result__title {
     width: 57.3rem;
     height: 11.3rem;
+    opacity: 0;
+    transition-property: transform, opacity;
+    transition-timing-function: $easing-decelerate, ease-in;
+    transition-duration: $duration-long, $duration-short;
+    transition-delay: $delay-medium, $delay-medium;
 
     @media (min-width: $stop-scaling) {
       width: 573px;
@@ -403,6 +435,11 @@
     margin-top: 9.5rem;
     width: 66.5rem;
     height: 11.3rem;
+    opacity: 0;
+    transition-property: transform, opacity;
+    transition-timing-function: $easing-decelerate, ease-in;
+    transition-duration: $duration-long, $duration-short;
+    transition-delay: $delay-medium, $delay-medium;
 
     @media (min-width: $stop-scaling) {
       margin-top: 95px;
@@ -424,6 +461,14 @@
     @media (max-width: $mobile) and (orientation: landscape) {
       width: 45rem;
     }
+  }
+}
+
+.visible--img {
+  .result__title,
+  .result__text,
+  .result__form {
+    opacity: 1;
   }
 }
 

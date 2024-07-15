@@ -1,7 +1,7 @@
 export default () => {
   let showResultEls = document.querySelectorAll(`.js-show-result`);
   let results = document.querySelectorAll(`.screen--result`);
-  let imagesContainer = document.querySelectorAll(`.result__images`);
+  let resultContainer = document.querySelectorAll(`.result__image`);
   if (results.length) {
     for (let i = 0; i < showResultEls.length; i++) {
       showResultEls[i].addEventListener(`click`, function () {
@@ -16,12 +16,8 @@ export default () => {
         targetEl[0].classList.add(`screen--show`);
         targetEl[0].classList.remove(`screen--hidden`);
         setTimeout(() => {
-          imagesContainer.forEach((container) => {
-            let images = container.querySelectorAll(".result__image");
-            images.forEach((image, index) => {
-              console.log(image);
-              image.classList.add("visible--img");
-            });
+          resultContainer.forEach((container) => {
+            container.classList.add("visible--img");
           });
         });
       });

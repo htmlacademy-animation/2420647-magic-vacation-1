@@ -272,6 +272,18 @@
       transform: scaleX(0);
       transform-origin: right;
 
+      .activedSlide-2 & {
+        background-color: #5073cf;
+      }
+
+      .activedSlide-4 & {
+        background-color: #94b6db;
+      }
+
+      .activedSlide-6 & {
+        background-color: #574f76;
+      }
+
       @media (max-width: $tablet) and (orientation: portrait) {
         background-color: $c-dark;
       }
@@ -299,9 +311,33 @@
     &:focus {
       color: $c-purple;
       outline: none;
+      .activedSlide-2 & {
+        color: #5073cf;
+      }
+
+      .activedSlide-4 & {
+        color: #94b6db;
+      }
+
+      .activedSlide-6 & {
+        color: #574f76;
+      }
+
       &::after {
         opacity: 1;
         background-color: $c-purple;
+
+        .activedSlide-2 & {
+          background-color: #5073cf;
+        }
+
+        .activedSlide-4 & {
+          background-color: #94b6db;
+        }
+
+        .activedSlide-6 & {
+          background-color: #574f76;
+        }
       }
     }
   }

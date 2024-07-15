@@ -53,6 +53,22 @@
     display: block;
     width: 2.3rem;
     height: 2.2rem;
+
+    path {
+      fill: #9577cf;
+
+      .activedSlide-2 & {
+        fill: #5073cf;
+      }
+
+      .activedSlide-4 & {
+        fill: #94b6db;
+      }
+
+      .activedSlide-6 & {
+        fill: #574f76;
+      }
+    }
   }
 
   &:hover,
