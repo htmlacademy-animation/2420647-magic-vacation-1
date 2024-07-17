@@ -168,6 +168,19 @@
   width: 4rem;
   height: 4rem;
   color: $c-dark;
+  transition: transform $duration-short $easing-in-out,
+    opacity $duration-short $easing-in-out;
+  animation: moveButtons $duration-medium $easing-in-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+
+  &.slider__control--prev {
+    transform: translateX(-100px) rotate(-90deg);
+  }
+
+  &.slider__control--next {
+    transform: translateX(100px) rotate(90deg);
+  }
 
   @media (min-width: $stop-scaling) {
     width: 40px;
@@ -287,5 +300,12 @@
       height: 0.4rem;
       background-color: $c-light;
     }
+  }
+}
+
+@keyframes moveButtons {
+  100% {
+    transform: translateX(0) rotate(0);
+    opacity: 1;
   }
 }
