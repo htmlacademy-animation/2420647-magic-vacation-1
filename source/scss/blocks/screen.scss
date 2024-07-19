@@ -322,7 +322,7 @@
   transform: translateY(100%);
 }
 
-.filling-prize.visible {
+.filling-prize.animate {
   transition: transform 0.5s ease-in-out;
   transform: translateY(0);
 }

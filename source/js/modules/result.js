@@ -1,7 +1,6 @@
 export default () => {
   let showResultEls = document.querySelectorAll(`.js-show-result`);
   let results = document.querySelectorAll(`.screen--result`);
-  let resultContainer = document.querySelectorAll(`.result__image`);
   if (results.length) {
     for (let i = 0; i < showResultEls.length; i++) {
       showResultEls[i].addEventListener(`click`, function () {
@@ -16,9 +15,20 @@ export default () => {
         targetEl[0].classList.add(`screen--show`);
         targetEl[0].classList.remove(`screen--hidden`);
         setTimeout(() => {
-          resultContainer.forEach((container) => {
-            container.classList.add("visible--img");
-          });
+          if (target === "result2") {
+            let resultContainer =
+              targetEl[0].querySelectorAll(`.result__image`);
+            resultContainer.forEach((container) => {
+              container.classList.add("visible--img");
+            });
+          } else if (target === "result3") {
+            let resultTitle = targetEl[0].querySelector(".result__title");
+            let resultButton = targetEl[0].querySelector(
+              ".result__button.js-play"
+            );
+            resultTitle.classList.add("visible");
+            resultButton.classList.add("visible");
+          }
         });
       });
     }

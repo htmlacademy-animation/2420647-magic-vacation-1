@@ -106,6 +106,19 @@
 
 .prizes__item {
   margin-left: 7.5rem;
+  opacity: 0;
+
+  .playAnimation & {
+    animation: visible 1s $easing-in-out forwards;
+    animation-delay: 7s;
+  }
+
+  &.prizes__item--journeys {
+    opacity: 1;
+    transform: translate(125%);
+    animation: movingSitting 2s $easing-decelerate forwards;
+    animation-delay: 6s;
+  }
 
   @media (min-width: $stop-scaling) {
     margin-left: 75px;
@@ -129,9 +142,33 @@
   &--journeys {
     .prizes__icon {
       position: relative;
+      top: 0;
       left: -5.9rem;
       bottom: -1.4rem;
       width: 26.8rem;
+
+      .playAnimation & .planeBox {
+        position: absolute;
+        animation: destroy 1s $easing-in-out forwards;
+        animation-delay: 5s;
+        #planeBox {
+          #plane {
+            animation: planing 5s $easing-in-out forwards;
+          }
+          #clouds {
+            animation: cloudsMoving 5s $easing-in-out forwards;
+          }
+        }
+      }
+
+      .playAnimation & .sitting {
+        opacity: 0;
+        animation: visible 1s $easing-in-out forwards;
+        animation-delay: 5s;
+        #clouds {
+          animation: cloudsMovingInSitting 2s $easing-in-out infinite;
+        }
+      }
 
       @media (min-width: $stop-scaling) {
         left: -59px;
@@ -158,7 +195,6 @@
 
   &--cases {
     margin-left: 7rem;
-
     @media (min-width: $stop-scaling) {
       margin-left: 70px;
     }
@@ -328,5 +364,69 @@
       width: 0.5rem;
       height: 0.5rem;
     }
+  }
+}
+
+@keyframes planing {
+  0% {
+    transform: rotate3d(1, 0, 0, 0deg);
+  }
+  25% {
+    transform: rotate3d(1, 0, 0, 20deg);
+  }
+  50% {
+    transform: rotate3d(1, 0, 0, 0deg);
+  }
+  75% {
+    transform: rotate3d(1, 0, 0, -20deg);
+  }
+  100% {
+    transform: rotate3d(1, 0, 0, 0deg);
+  }
+}
+
+@keyframes cloudsMoving {
+  0% {
+    transform: translate(100%);
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100%);
+  }
+}
+
+@keyframes destroy {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes visible {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes movingSitting {
+  100% {
+    transform: translate(0%);
+  }
+}
+
+@keyframes cloudsMovingInSitting {
+  0% {
+    transform: translate(300px, 160px);
+  }
+  100% {
+    transform: translate(150px, 160px);
   }
 }
