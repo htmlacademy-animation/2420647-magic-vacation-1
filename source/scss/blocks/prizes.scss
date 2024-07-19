@@ -227,6 +227,9 @@
   }
 
   &--codes {
+    .playAnimation & {
+      animation-delay: 8s;
+    }
     @media (max-width: $tablet) and (orientation: portrait) {
       padding-left: 0.8rem;
     }
