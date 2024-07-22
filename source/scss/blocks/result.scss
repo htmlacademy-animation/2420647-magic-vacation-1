@@ -474,7 +474,6 @@
           @for $i from 1 through 10 {
             &:nth-child(#{$i}) {
               transform: translateY(-100%);
-              opacity: 1;
               stroke-dasharray: 1000;
               stroke-dashoffset: 1000;
               animation: draw 3s linear forwards,
@@ -555,11 +554,7 @@
 }
 
 @keyframes draw {
-  from {
-    opacity: 1;
-  }
   to {
-    opacity: 1;
     stroke-dashoffset: 0;
   }
 }
