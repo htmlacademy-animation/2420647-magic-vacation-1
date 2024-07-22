@@ -57,6 +57,19 @@
   transition-duration: $duration-long, $duration-short;
   transition-delay: $delay-short, $delay-short;
 
+  &.visible--img {
+    .result__title {
+      svg {
+        path {
+          opacity: 1;
+          stroke-dasharray: 1000;
+          stroke-dashoffset: 1000;
+          animation: draw 5s linear forwards $delay-medium;
+        }
+      }
+    }
+  }
+
   picture {
     display: block;
     width: 100%;
@@ -454,6 +467,24 @@
 
     &.visible {
       opacity: 1;
+
+      svg {
+        overflow: visible;
+        path {
+          @for $i from 1 through 10 {
+            &:nth-child(#{$i}) {
+              transform: translateY(-100%);
+              opacity: 1;
+              stroke-dasharray: 1000;
+              stroke-dashoffset: 1000;
+              animation: draw 3s linear forwards,
+                fall 1s $easing-bouncing forwards;
+              animation-delay: $delay-medium,
+                calc(#{$delay-extra-long * $i * 0.2});
+            }
+          }
+        }
+      }
     }
 
     @media (min-width: $stop-scaling) {
@@ -520,5 +551,21 @@
   }
   50% {
     transform: rotate(-3deg);
+  }
+}
+
+@keyframes draw {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(0%);
   }
 }
