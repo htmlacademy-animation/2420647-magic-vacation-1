@@ -153,10 +153,10 @@
         animation-delay: 5s;
         #planeBox {
           #plane {
-            animation: planing 5s $easing-in-out forwards;
+            animation: planing 6s $easing-in-out forwards;
           }
           #clouds {
-            animation: cloudsMoving 5s $easing-in-out forwards;
+            animation: cloudsMoving 6s $easing-in-out forwards;
           }
         }
       }
