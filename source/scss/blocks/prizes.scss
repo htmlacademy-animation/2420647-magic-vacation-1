@@ -195,6 +195,13 @@
 
   &--cases {
     margin-left: 7rem;
+
+    .prizes__desc {
+      b {
+        width: 5rem;
+      }
+    }
+
     @media (min-width: $stop-scaling) {
       margin-left: 70px;
     }
@@ -232,6 +239,12 @@
     }
     @media (max-width: $tablet) and (orientation: portrait) {
       padding-left: 0.8rem;
+    }
+
+    .prizes__desc {
+      b {
+        width: 18rem;
+      }
     }
 
     .prizes__icon {

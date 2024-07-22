@@ -1,5 +1,6 @@
 import throttle from "lodash/throttle";
 import gameTimer from "./game-timer";
+import prizesCounter from "./prizes-counter";
 
 export default class FullPageScroll {
   constructor() {
@@ -77,6 +78,7 @@ export default class FullPageScroll {
         });
         activeScreenElement.classList.remove(`screen--hidden`);
         filling.classList.remove("animate");
+        prizesCounter();
       }, 550);
     } else {
       filling.classList.remove("animate");
