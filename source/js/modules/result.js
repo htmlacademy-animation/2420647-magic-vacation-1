@@ -1,4 +1,5 @@
 import SeaCalfScene from "./2d-animation/seacalf-canvas-animation";
+import CrocodileScene from "./2d-animation/crocodile-canvas-animation.js";
 
 export default () => {
   const showResultEls = document.querySelectorAll(`.js-show-result`);
@@ -58,6 +59,10 @@ export default () => {
               });
             } else if (target === "result3" && resultButton) {
               resultButton.classList.add("visible");
+              let CrocodileCanvasAnimate = new CrocodileScene({
+                canvas: document.querySelector(`#crocodile-canvas`),
+              });
+              CrocodileCanvasAnimate.startAnimation();
             }
           });
         }
