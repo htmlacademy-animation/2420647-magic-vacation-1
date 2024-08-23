@@ -14,9 +14,24 @@ function easeOutElastic(x) {
   }
 }
 
+function easeInCubic(x) {
+  return x ** 3;
+}
+
+function easeOutCubic(x) {
+  return 1 - Math.pow(1 - x, 3);
+}
+
+function easeInOutSine(x) {
+  return -(Math.cos(Math.PI * x) - 1) / 2;
+}
+
 let easing = Object.freeze({
   easeLinear,
   easeOutElastic,
+  easeInCubic,
+  easeOutCubic,
+  easeInOutSine,
 });
 
 export default easing;
