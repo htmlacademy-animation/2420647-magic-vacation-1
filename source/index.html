@@ -753,17 +753,7 @@
         <div class="screen__wrapper">
           <div class="result result--trip">
             <div class="result__image">
-              <picture>
-                <source
-                  srcset="img/result1-mob.png 1x, img/result1-mob@2x.png 2x"
-                  media="(max-width: 768px) and (orientation: portrait)"
-                />
-                <img
-                  src="img/result1.png"
-                  srcset="img/result1@2x.png 2x"
-                  alt=""
-                />
-              </picture>
+              <canvas id="sea-calf-canvas"></canvas>
             </div>
             <h2 class="result__title">
               <span class="visually-hidden">ПОбеда!</span>
@@ -820,7 +810,9 @@
             </div>
             <div class="result__form">
               <form action="#" method="post" class="form form--result">
-                <label for="email-field" class="form__label"
+                
+                <div class="form__wrapper">
+                  <label for="email-field" class="form__label"
                   >зарегистрируй результат</label
                 >
                 <input
@@ -830,6 +822,7 @@
                   placeholder="e-mail для регистации результата и получения приза"
                   required
                 />
+                </div>
                 <button class="form__button btn">
                   отправить
                   <svg
@@ -858,23 +851,7 @@
         <div class="screen__wrapper">
           <div class="result result--prize">
             <div class="result__image">
-              <div class="result__images">
-                <div class="result__image result__image--leaf-blue-1">
-                  <img src="img/module-2/win-suitcase/leaf-blue-1.png">
-                </div>
-                <div class="result__image result__image--leaf-blue-2">
-                  <img src="img/module-2/win-suitcase/leaf-blue-2.png">
-                </div>
-                <div class="result__image result__image--leaf-green">
-                  <img src="img/module-2/win-suitcase/leaf-green.png">
-                </div>
-                <div class="result__image result__image--suitcase">
-                  <img src="img/module-2/win-suitcase/suitcase.png">
-                </div>
-                <div class="result__image result__image--flamingo">
-                  <img src="img/module-2/win-suitcase/flamingo.png">
-                </div>
-            </div>
+              
             <h2 class="result__title">
               <span class="visually-hidden">ПОбеда!</span>
               <svg
@@ -928,6 +905,23 @@
             <div class="result__text">
               <p>чемодан &laquo;Fjord&nbsp;Inc.&raquo;&nbsp;твой</p>
             </div>
+            <div class="result__images">
+              <div class="result__image result__image--leaf-blue-1">
+                <img src="img/module-2/win-suitcase/leaf-blue-1.png">
+              </div>
+              <div class="result__image result__image--leaf-blue-2">
+                <img src="img/module-2/win-suitcase/leaf-blue-2.png">
+              </div>
+              <div class="result__image result__image--leaf-green">
+                <img src="img/module-2/win-suitcase/leaf-green.png">
+              </div>
+              <div class="result__image result__image--suitcase">
+                <img src="img/module-2/win-suitcase/suitcase.png">
+              </div>
+              <div class="result__image result__image--flamingo">
+                <img src="img/module-2/win-suitcase/flamingo.png">
+              </div>
+          </div>
             <div class="result__form">
               <form action="#" method="post" class="form form--result">
                 <div class="form__wrapper">
