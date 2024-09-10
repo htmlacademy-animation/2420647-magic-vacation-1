@@ -4,10 +4,19 @@ import scene from "./3d-animation/3d-scene";
 
 export default () => {
   let storySlider;
+  let body = document.getElementsByTagName("body")[0];
   const story = new scene();
 
   const setSlider = function () {
     const updateBackgroundAndClass = () => {
+      body.className = body.className
+        .split(" ")
+        .filter((className) => !className.startsWith("activedSlide-"))
+        .join(" ");
+
+      // Add the active class to body
+      body.classList.add(`activedSlide-${storySlider.activeIndex}`);
+
       // Update the background image
       if (storySlider.activeIndex === 0 || storySlider.activeIndex === 1) {
         story.setScene(1);
@@ -76,6 +85,7 @@ export default () => {
 
   window.addEventListener(`resize`, function () {
     if (storySlider) {
+      body.classList.remove(`activedSlide-${storySlider.activeIndex}`);
       storySlider.destroy();
     }
     setSlider();

@@ -83,6 +83,13 @@ export default class FullPageScroll {
     } else {
       if (activeScreenElement.classList.contains("screen--story")) {
         //console.log(1);
+      } else {
+        let body = document.getElementsByTagName("body")[0];
+        body.classList.forEach((className) => {
+          if (className.startsWith("activedSlide-")) {
+            body.classList.remove(className);
+          }
+        });
       }
       filling.classList.remove("animate");
       this.screenElements.forEach((screen) => {
