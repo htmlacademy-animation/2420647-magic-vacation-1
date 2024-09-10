@@ -1,14 +1,14 @@
 import Swiper from "swiper";
+//import sceneStory from "./3d-animation/3d-scene-story";
+import scene from "./3d-animation/3d-scene";
 
 export default () => {
   let storySlider;
-  let sliderContainer = document.getElementById(`story`);
-  sliderContainer.style.backgroundImage = `url("img/slide1.jpg"), linear-gradient(180deg, rgba(83, 65, 118, 0) 0%, #523E75 16.85%)`;
   let body = document.getElementsByTagName("body")[0];
+  const story = new scene();
 
   const setSlider = function () {
     const updateBackgroundAndClass = () => {
-      // Remove the active class from body
       body.className = body.className
         .split(" ")
         .filter((className) => !className.startsWith("activedSlide-"))
@@ -18,14 +18,23 @@ export default () => {
       body.classList.add(`activedSlide-${storySlider.activeIndex}`);
 
       // Update the background image
-      if (storySlider.activeIndex === 0) {
-        sliderContainer.style.backgroundImage = `url("img/slide1.jpg")`;
-      } else if (storySlider.activeIndex === 2) {
-        sliderContainer.style.backgroundImage = `url("img/slide2.jpg")`;
-      } else if (storySlider.activeIndex === 4) {
-        sliderContainer.style.backgroundImage = `url("img/slide3.jpg")`;
-      } else if (storySlider.activeIndex === 6) {
-        sliderContainer.style.backgroundImage = `url("img/slide4.jpg")`;
+      if (storySlider.activeIndex === 0 || storySlider.activeIndex === 1) {
+        story.setScene(1);
+      } else if (
+        storySlider.activeIndex === 2 ||
+        storySlider.activeIndex === 3
+      ) {
+        story.setScene(2);
+      } else if (
+        storySlider.activeIndex === 4 ||
+        storySlider.activeIndex === 5
+      ) {
+        story.setScene(3);
+      } else if (
+        storySlider.activeIndex === 6 ||
+        storySlider.activeIndex === 7
+      ) {
+        story.setScene(4);
       }
     };
 
@@ -76,10 +85,23 @@ export default () => {
 
   window.addEventListener(`resize`, function () {
     if (storySlider) {
+      body.classList.remove(`activedSlide-${storySlider.activeIndex}`);
       storySlider.destroy();
     }
     setSlider();
+    document.body.addEventListener(`screenChanged`, (e) => {
+      if (e.detail.screenName === `story`) {
+        story.init();
+        story.setScene(1);
+      }
+    });
   });
 
   setSlider();
+  document.body.addEventListener(`screenChanged`, (e) => {
+    if (e.detail.screenName === `story`) {
+      story.init();
+      story.setScene(1);
+    }
+  });
 };
