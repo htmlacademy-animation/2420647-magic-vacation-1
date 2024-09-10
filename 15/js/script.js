@@ -62030,31 +62030,34 @@ class SeaCalfScene extends _canvas_scene__WEBPACK_IMPORTED_MODULE_2__["default"]
 
 /***/ }),
 
-/***/ "./source/js/modules/3d-animation/3d-scene-story.js":
-/*!**********************************************************!*\
-  !*** ./source/js/modules/3d-animation/3d-scene-story.js ***!
-  \**********************************************************/
+/***/ "./source/js/modules/3d-animation/3d-scene.js":
+/*!****************************************************!*\
+  !*** ./source/js/modules/3d-animation/3d-scene.js ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return sceneStory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return scene; });
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 
 
-class sceneStory {
+class scene {
   constructor() {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
     this.aspectRation = this.width / this.height;
 
+    // Объединение текстур
     this.textures = [
+      `./img/module-5/scenes-textures/scene-0.png`,
       `./img/module-5/scenes-textures/scene-1.png`,
       `./img/module-5/scenes-textures/scene-2.png`,
       `./img/module-5/scenes-textures/scene-3.png`,
       `./img/module-5/scenes-textures/scene-4.png`,
     ];
+
     this.textureWidth = 2048;
     this.textureHeight = 1024;
     this.textureRatio = this.textureWidth / this.textureHeight;
@@ -62111,89 +62114,10 @@ class sceneStory {
     this.renderer.render(this.scene, this.camera);
   }
 
+  // Метод для смены сцены
   setScene(i) {
-    console.log(this);
-
     this.camera.position.x = this.textureWidth * i;
     this.render();
-  }
-}
-
-
-/***/ }),
-
-/***/ "./source/js/modules/3d-animation/3d-scene-top.js":
-/*!********************************************************!*\
-  !*** ./source/js/modules/3d-animation/3d-scene-top.js ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return sceneTop; });
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-
-
-class sceneTop {
-  constructor() {
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
-    this.aspectRation = this.width / this.height;
-
-    this.texture = `./img/module-5/scenes-textures/scene-0.png`;
-    this.textureWidth = 2048;
-    this.textureHeight = 1024;
-    this.textureRatio = this.textureWidth / this.textureHeight;
-
-    this.canvasId = `animation-screen-3d`;
-
-    this.render = this.render.bind(this);
-  }
-
-  init() {
-    this.canvas = document.getElementById(this.canvasId);
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
-
-    this.scene = new three__WEBPACK_IMPORTED_MODULE_0__["Scene"]();
-
-    this.camera = new three__WEBPACK_IMPORTED_MODULE_0__["PerspectiveCamera"](45, this.aspectRation, 0.1, 1200);
-    this.camera.position.z = 1200;
-
-    this.color = new three__WEBPACK_IMPORTED_MODULE_0__["Color"](0x5f458c);
-    this.alpha = 1;
-
-    this.renderer = new three__WEBPACK_IMPORTED_MODULE_0__["WebGLRenderer"]({
-      canvas: this.canvas,
-    });
-    this.renderer.setClearColor(this.color, this.alpha);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(this.width, this.height);
-
-    const loadManager = new three__WEBPACK_IMPORTED_MODULE_0__["LoadingManager"]();
-    const textureLoader = new three__WEBPACK_IMPORTED_MODULE_0__["TextureLoader"](loadManager);
-    const loadedTexture = textureLoader.load(this.texture);
-
-    loadManager.onLoad = () => {
-      const geometry = new three__WEBPACK_IMPORTED_MODULE_0__["PlaneGeometry"](1, 1);
-      const material = new three__WEBPACK_IMPORTED_MODULE_0__["MeshBasicMaterial"]({
-        map: loadedTexture,
-      });
-      const image = new three__WEBPACK_IMPORTED_MODULE_0__["Mesh"](geometry, material);
-
-      image.scale.x = this.textureWidth;
-      image.scale.y = this.textureHeight;
-
-      this.scene.add(image);
-      this.render();
-    };
-
-    this.render();
-  }
-
-  render() {
-    this.renderer.render(this.scene, this.camera);
   }
 }
 
@@ -62827,34 +62751,35 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/js/swiper.esm.bundle.js");
-/* harmony import */ var _3d_animation_3d_scene_story__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./3d-animation/3d-scene-story */ "./source/js/modules/3d-animation/3d-scene-story.js");
+/* harmony import */ var _3d_animation_3d_scene__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./3d-animation/3d-scene */ "./source/js/modules/3d-animation/3d-scene.js");
 
+//import sceneStory from "./3d-animation/3d-scene-story";
 
 
 /* harmony default export */ __webpack_exports__["default"] = (() => {
   let storySlider;
-  const story = new _3d_animation_3d_scene_story__WEBPACK_IMPORTED_MODULE_1__["default"]();
+  const story = new _3d_animation_3d_scene__WEBPACK_IMPORTED_MODULE_1__["default"]();
 
   const setSlider = function () {
     const updateBackgroundAndClass = () => {
       // Update the background image
       if (storySlider.activeIndex === 0 || storySlider.activeIndex === 1) {
-        story.setScene(0);
+        story.setScene(1);
       } else if (
         storySlider.activeIndex === 2 ||
         storySlider.activeIndex === 3
       ) {
-        story.setScene(1);
+        story.setScene(2);
       } else if (
         storySlider.activeIndex === 4 ||
         storySlider.activeIndex === 5
       ) {
-        story.setScene(2);
+        story.setScene(3);
       } else if (
         storySlider.activeIndex === 6 ||
         storySlider.activeIndex === 7
       ) {
-        story.setScene(3);
+        story.setScene(4);
       }
     };
 
@@ -62911,7 +62836,7 @@ __webpack_require__.r(__webpack_exports__);
     document.body.addEventListener(`screenChanged`, (e) => {
       if (e.detail.screenName === `story`) {
         story.init();
-        story.setScene(0);
+        story.setScene(1);
       }
     });
   });
@@ -62920,7 +62845,7 @@ __webpack_require__.r(__webpack_exports__);
   document.body.addEventListener(`screenChanged`, (e) => {
     if (e.detail.screenName === `story`) {
       story.init();
-      story.setScene(0);
+      story.setScene(1);
     }
   });
 });
@@ -63089,7 +63014,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_social_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/social.js */ "./source/js/modules/social.js");
 /* harmony import */ var _modules_full_page_scroll__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/full-page-scroll */ "./source/js/modules/full-page-scroll.js");
 /* harmony import */ var _modules_loading__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/loading */ "./source/js/modules/loading.js");
-/* harmony import */ var _modules_3d_animation_3d_scene_top__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/3d-animation/3d-scene-top */ "./source/js/modules/3d-animation/3d-scene-top.js");
+/* harmony import */ var _modules_3d_animation_3d_scene_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/3d-animation/3d-scene.js */ "./source/js/modules/3d-animation/3d-scene.js");
 // modules
 
 
@@ -63113,11 +63038,11 @@ Object(_modules_result_js__WEBPACK_IMPORTED_MODULE_5__["default"])();
 Object(_modules_form_js__WEBPACK_IMPORTED_MODULE_6__["default"])();
 Object(_modules_social_js__WEBPACK_IMPORTED_MODULE_7__["default"])();
 Object(_modules_loading__WEBPACK_IMPORTED_MODULE_9__["default"])();
-const top = new _modules_3d_animation_3d_scene_top__WEBPACK_IMPORTED_MODULE_10__["default"]();
+const mainScene = new _modules_3d_animation_3d_scene_js__WEBPACK_IMPORTED_MODULE_10__["default"]();
 
 document.body.addEventListener(`screenChanged`, (e) => {
   if (e.detail.screenName === `top`) {
-    top.init();
+    mainScene.init();
   }
 });
 
