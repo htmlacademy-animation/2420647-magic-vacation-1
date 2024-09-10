@@ -62379,6 +62379,13 @@ class FullPageScroll {
     } else {
       if (activeScreenElement.classList.contains("screen--story")) {
         //console.log(1);
+      } else {
+        let body = document.getElementsByTagName("body")[0];
+        body.classList.forEach((className) => {
+          if (className.startsWith("activedSlide-")) {
+            body.classList.remove(className);
+          }
+        });
       }
       filling.classList.remove("animate");
       this.screenElements.forEach((screen) => {
@@ -62758,10 +62765,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (() => {
   let storySlider;
+  let body = document.getElementsByTagName("body")[0];
   const story = new _3d_animation_3d_scene__WEBPACK_IMPORTED_MODULE_1__["default"]();
 
   const setSlider = function () {
     const updateBackgroundAndClass = () => {
+      body.className = body.className
+        .split(" ")
+        .filter((className) => !className.startsWith("activedSlide-"))
+        .join(" ");
+
+      // Add the active class to body
+      body.classList.add(`activedSlide-${storySlider.activeIndex}`);
+
       // Update the background image
       if (storySlider.activeIndex === 0 || storySlider.activeIndex === 1) {
         story.setScene(1);
@@ -62830,6 +62846,7 @@ __webpack_require__.r(__webpack_exports__);
 
   window.addEventListener(`resize`, function () {
     if (storySlider) {
+      body.classList.remove(`activedSlide-${storySlider.activeIndex}`);
       storySlider.destroy();
     }
     setSlider();
