@@ -81,6 +81,9 @@ export default class FullPageScroll {
         prizesCounter();
       }, 550);
     } else {
+      if (activeScreenElement.classList.contains("screen--story")) {
+        //console.log(1);
+      }
       filling.classList.remove("animate");
       this.screenElements.forEach((screen) => {
         screen.classList.add(`screen--hidden`);

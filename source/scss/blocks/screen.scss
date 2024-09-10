@@ -19,6 +19,14 @@
   }
 }
 
+#animation-screen-3d {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .screen__wrapper {
   @include container;
   position: relative;
@@ -296,8 +304,8 @@
 
 .screen--story {
   background-color: $c-dark;
-  background-image: url("../img/slide1.jpg"), url("../img/slide2.jpg"),
-    url("../img/slide3.jpg"), url("../img/slide4.jpg");
+  //background-image: url("../img/slide1.jpg"), url("../img/slide2.jpg"),
+  //  url("../img/slide3.jpg"), url("../img/slide4.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
