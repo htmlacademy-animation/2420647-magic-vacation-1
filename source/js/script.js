@@ -9,7 +9,6 @@ import form from "./modules/form.js";
 import social from "./modules/social.js";
 import FullPageScroll from "./modules/full-page-scroll";
 import loading from "./modules/loading";
-import scene from "./modules/3d-animation/3d-scene.js";
 
 // init modules
 mobileHeight();
@@ -21,13 +20,6 @@ result();
 form();
 social();
 loading();
-const mainScene = new scene();
-
-document.body.addEventListener(`screenChanged`, (e) => {
-  if (e.detail.screenName === `top`) {
-    mainScene.init();
-  }
-});
 
 const fullPageScroll = new FullPageScroll();
 fullPageScroll.init();
