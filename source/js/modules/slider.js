@@ -1,13 +1,13 @@
 import Swiper from "swiper";
 //import sceneStory from "./3d-animation/3d-scene-story";
-import scene from "./3d-animation/3d-scene";
+import { plainMeshController } from "./3d-animation/plainMeshController";
 
 export default () => {
   let storySlider;
   let body = document.getElementsByTagName("body")[0];
-  const story = new scene();
 
   const setSlider = function () {
+    plainMeshController.setStoryActiveMesh();
     const updateBackgroundAndClass = () => {
       body.className = body.className
         .split(" ")
@@ -19,22 +19,22 @@ export default () => {
 
       // Update the background image
       if (storySlider.activeIndex === 0 || storySlider.activeIndex === 1) {
-        story.setScene(1);
+        plainMeshController.setStoryActiveMesh(0);
       } else if (
         storySlider.activeIndex === 2 ||
         storySlider.activeIndex === 3
       ) {
-        story.setScene(2);
+        plainMeshController.setStoryActiveMesh(1);
       } else if (
         storySlider.activeIndex === 4 ||
         storySlider.activeIndex === 5
       ) {
-        story.setScene(3);
+        plainMeshController.setStoryActiveMesh(2);
       } else if (
         storySlider.activeIndex === 6 ||
         storySlider.activeIndex === 7
       ) {
-        story.setScene(4);
+        plainMeshController.setStoryActiveMesh(3);
       }
     };
 
@@ -89,19 +89,7 @@ export default () => {
       storySlider.destroy();
     }
     setSlider();
-    document.body.addEventListener(`screenChanged`, (e) => {
-      if (e.detail.screenName === `story`) {
-        story.init();
-        story.setScene(1);
-      }
-    });
   });
 
   setSlider();
-  document.body.addEventListener(`screenChanged`, (e) => {
-    if (e.detail.screenName === `story`) {
-      story.init();
-      story.setScene(1);
-    }
-  });
 };

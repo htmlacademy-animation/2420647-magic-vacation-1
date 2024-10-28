@@ -1,6 +1,7 @@
 import throttle from "lodash/throttle";
 import gameTimer from "./game-timer";
 import prizesCounter from "./prizes-counter";
+import { plainMeshController } from "./3d-animation/plainMeshController";
 
 export default class FullPageScroll {
   constructor() {
@@ -108,6 +109,39 @@ export default class FullPageScroll {
         body.classList.remove(className);
       }
     });
+
+    const prevActiveScreen = document.querySelector(`.screen.active`);
+    const nextActiveScreen = this.screenElements[this.activeScreen];
+
+    plainMeshController.clearScene();
+
+    if (nextActiveScreen.classList.contains(`screen--intro`)) {
+      plainMeshController.addScreenMesh(`intro`);
+    } else if (nextActiveScreen.classList.contains(`screen--story`)) {
+      plainMeshController.addScreenMesh(`story`).then(() => {
+        plainMeshController.setStoryActiveMesh();
+      });
+    }
+
+    if (
+      prevActiveScreen &&
+      prevActiveScreen.classList.contains(`screen--story`)
+    ) {
+      // bodyTheme.clearBodyTheme();
+    }
+
+    if (nextActiveScreen.classList.contains(`screen--story`)) {
+      // bodyTheme.applyTheme();
+    }
+
+    this.screenElements.forEach((screen) => {
+      screen.classList.add(`screen--hidden`);
+      screen.classList.remove(`active`);
+    });
+    nextActiveScreen.classList.remove(`screen--hidden`);
+    setTimeout(() => {
+      nextActiveScreen.classList.add(`active`);
+    }, 100);
   }
 
   changeActiveMenuItem() {
