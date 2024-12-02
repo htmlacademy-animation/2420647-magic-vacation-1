@@ -3,7 +3,7 @@ import { scene } from "./initAnimationScreen";
 import vertexShader from "../shaders/custom-vertex-shader.glsl";
 import fragmentShader from "../shaders/custom-fragment-shader.glsl";
 const IMAGE_ASPECT_RATIO = 2;
-const imageHeight = window.innerHeight / 100;
+const imageHeight = window.innerHeight / 1.5;
 const imageWidth = imageHeight * IMAGE_ASPECT_RATIO;
 const planeGeometry = new THREE.PlaneGeometry(imageWidth, imageHeight);
 export const plainMeshController = {
@@ -18,6 +18,9 @@ export const plainMeshController = {
       return;
     }
     scene.scene.children.forEach((mesh) => {
+      if (!mesh.isMesh) {
+        return;
+      }
       if (mesh.name === this.textureScreenImages.story[index]) {
         mesh.visible = true;
         this.setMeshTransformations(mesh, index);
@@ -26,6 +29,7 @@ export const plainMeshController = {
       mesh.visible = false;
     });
     this.prevStoryTheme = index;
+    scene.render();
   },
   clearScene() {
     scene.clearScene();
