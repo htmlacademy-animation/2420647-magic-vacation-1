@@ -9,7 +9,7 @@ export const sceneController = {
   },
 
   async addScreenMesh() {
-    scene.addSceneObject(new SceneWithLantern());
+    //scene.addSceneObject(new SceneWithLantern());
     const svgShapeLoader = new SvgLoader(SVG_FORMS);
     const extrudeSvgObjects = new ExtrudeSvgObjects(
       svgShapeLoader,
