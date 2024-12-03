@@ -66899,7 +66899,7 @@ const sceneController = {
   },
 
   async addScreenMesh() {
-    _initAnimationScreen__WEBPACK_IMPORTED_MODULE_0__["scene"].addSceneObject(new SceneWithLantern());
+    //scene.addSceneObject(new SceneWithLantern());
     const svgShapeLoader = new _svg_objects_svg_insert_js__WEBPACK_IMPORTED_MODULE_1__["SvgLoader"](_helpers_constants__WEBPACK_IMPORTED_MODULE_3__["SVG_FORMS"]);
     const extrudeSvgObjects = new _svg_objects_extrude_svg_js__WEBPACK_IMPORTED_MODULE_2__["ExtrudeSvgObjects"](
       svgShapeLoader,
