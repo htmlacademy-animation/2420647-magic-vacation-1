@@ -2,13 +2,15 @@ import { scene } from "./initAnimationScreen";
 import { SvgLoader } from "./svg-objects/svg-insert.js";
 import { ExtrudeSvgObjects } from "./svg-objects/extrude-svg.js";
 import { EXTRUDE_SETTINGS, SVG_FORMS } from "../../helpers/constants";
+import { LatheGeometryCreator } from "./3d-objects/LatheGeometryCreator";
+import { Saturn } from "./3d-objects/saturn";
 
 export const sceneController = {
   clearScene() {
     scene.clearScene();
   },
 
-  async addScreenMesh() {
+  async addSvgImages() {
     //scene.addSceneObject(new SceneWithLantern());
     const svgShapeLoader = new SvgLoader(SVG_FORMS);
     const extrudeSvgObjects = new ExtrudeSvgObjects(
@@ -54,5 +56,15 @@ export const sceneController = {
     scene.addSceneObject(leafMesh);
     scene.addSceneObject(flowerMesh);
     scene.addSceneObject(keyholeMesh);
+  },
+
+  async addScreenMesh() {
+    const saturn = new Saturn();
+    saturn.position.set(0, 200, 0);
+    scene.addSceneObject(saturn);
+    const road = new LatheGeometryCreator().createRoad();
+    road.position.set(0, 100, 0);
+    scene.addSceneObject(road);
+    scene.addSceneObject(new LatheGeometryCreator().createCarpet());
   },
 };
