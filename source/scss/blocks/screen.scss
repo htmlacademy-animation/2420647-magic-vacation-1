@@ -27,6 +27,11 @@
   height: 100%;
 }
 
+.animation-screen {
+  z-index: 999;
+  background-color: $c-dark;
+}
+
 .screen__wrapper {
   @include container;
   position: relative;
