@@ -9,6 +9,7 @@ import { reflection3D } from "../../helpers/3d-data";
 import { color3D } from "../../helpers/3d-data";
 import { Carpet } from "./3d-objects/carpet";
 import { Road } from "./3d-objects/road";
+import { objectLoader } from "./object-creator";
 
 export const sceneController = {
   clearScene() {
@@ -148,6 +149,39 @@ export const sceneController = {
     );
     scene.addSceneObject(question);
   },
+
+  addSuitcase() {
+    const name = `suitcase`;
+    objectLoader(name, null, (mesh) => {
+      mesh.name = name;
+      mesh.position.set(-120, 0, 120);
+      mesh.scale.set(0.8, 0.8, 0.8);
+      scene.addSceneObject(mesh);
+    });
+  },
+  addWatermelon() {
+    const name = `watermelon`;
+    objectLoader(name, null, (mesh) => {
+      mesh.name = name;
+      mesh.position.set(100, 250, 60);
+      mesh.scale.set(2.2, 2.2, 2.2);
+      scene.addSceneObject(mesh);
+    });
+  },
+  addAirplane() {
+    const name = `airplane`;
+    const material = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(color3D.White),
+      metalness: reflection3D.basic.metalness,
+      roughness: reflection3D.basic.roughness,
+    });
+    objectLoader(name, material, (mesh) => {
+      mesh.name = name;
+      mesh.position.set(250, 150, 100);
+      mesh.scale.set(1.4, 1.4, 1.4);
+      scene.addSceneObject(mesh);
+    });
+  },
   addSnowFlake() {
     const snowflake = new SvgLoader(`snowflake`).createSvgGroup();
     const scale = 1.7;
@@ -208,5 +242,8 @@ export const sceneController = {
     this.addFlowers();
     this.addCarpet();
     this.addRoad();
+    this.addSuitcase();
+    this.addWatermelon();
+    this.addAirplane();
   },
 };
