@@ -17,11 +17,15 @@ export class RoomsPageScene extends THREE.Group {
     roomsComposition.rotateY(-Math.PI / 4);
     roomsComposition.rotateY(-Math.PI / 2);
     roomsComposition.rotateY(-Math.PI / 2);
-    this.scene.addTransformationsToLoop([
-      () => {
-        roomsComposition.rotateY(-0.002);
-      },
-    ]);
+    this.scene.addAnimations(
+      new Animation({
+        duration: `infinite`,
+        func: () => {
+          roomsComposition.rotateY(-0.004);
+        },
+      })
+    );
+    this.scene.startAnimations();
     this.add(roomsComposition);
   }
   addSuitCase() {
