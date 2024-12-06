@@ -17,35 +17,36 @@ export class PageSceneCreator {
       if (config.material) {
         this.applyMaterialToObject(obj, config.material);
       }
-      if (config.transform) {
+      if (config.transform.from) {
         if (config.enableGui) {
           this.transformationGuiHelper.addNewFolder(
             config.name,
             obj,
-            config.transform
+            config.transform.to
           );
         }
-        this.setTransformParams(obj, config.transform);
+        this.setTransformParams(obj, config.transform.from);
       }
       onComplete(obj);
     });
   }
   createExtrudedSvgMesh(config, onComplete) {
     this.extrudeSvgCreator.create(config.name, config.extrude, (obj) => {
-      if (config.transform) {
+      if (config.transform.from) {
         if (config.enableGui) {
           this.transformationGuiHelper.addNewFolder(
             config.name,
             obj,
-            config.transform
+            config.transform.to
           );
         }
-        this.setTransformParams(obj, config.transform);
+        this.setTransformParams(obj, config.transform.from);
       }
       onComplete(obj);
     });
   }
   setTransformParams(obj, params) {
+    const scale = typeof params.scale === `number` ? params.scale : 1;
     obj.position.set(
       params.transformX || 0,
       params.transformY || 0,
@@ -56,7 +57,7 @@ export class PageSceneCreator {
       params.rotateY || 0,
       params.rotateZ || 0
     );
-    obj.scale.set(params.scale || 1, params.scale || 1, params.scale || 1);
+    obj.scale.set(scale, scale, scale);
   }
   applyMaterialToObject(obj3d, material) {
     obj3d.traverse((child) => {

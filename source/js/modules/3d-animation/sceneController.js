@@ -11,6 +11,7 @@ import { PageSceneCreator } from "./page-scene-creator";
 import { degreesToRadians } from "../../helpers/utils";
 import { RoomsPageScene } from "./rooms/story-screen";
 import { LatheGeometryCreator } from "./lathe-geometry";
+import { AnimationManager } from "./animation-change";
 
 const materialCreator = new MaterialCreator();
 const latheGeometryCreator = new LatheGeometryCreator();
@@ -29,17 +30,30 @@ const pageSceneCreator = new PageSceneCreator(
   transformationGuiHelper
 );
 
+const animationManager = new AnimationManager();
+
 export const sceneController = {
+  ainPageScene: null,
+  roomsPageScene: null,
   clearScene() {
     scene.clearScene();
   },
 
-  addMainPageComposition() {
-    const mainPageComposition = new MainPageComposition(pageSceneCreator);
-    scene.addSceneObject(mainPageComposition);
+  addMainPageScene() {
+    this.clearScene();
+
+    if (!this.mainPageScene) {
+      this.mainPageScene = new MainPageComposition(
+        pageSceneCreator,
+        animationManager
+      );
+    }
+
+    scene.addSceneObject(this.mainPageScene);
   },
 
-  addRoomsPageComposition() {
+  addRoomsPageScene() {
+    this.clearScene();
     const positionZ = 2550;
     const positionY = 700;
 
@@ -52,23 +66,15 @@ export const sceneController = {
       0
     );
 
-    // const roomsComposition = new RoomsPageScene(pageSceneCreator, scene);
-    // scene.addSceneObject(roomsComposition);
+    if (!this.roomsPageScene) {
+      this.roomsPageScene = new RoomsPageScene(pageSceneCreator, scene);
+    }
 
-    const roomsPageScene = new RoomsPageScene(pageSceneCreator, scene);
-
-    scene.addSceneObject(roomsPageScene);
-    // roomsComposition.rotateY(-Math.PI / 4);
-    // roomsComposition.rotateY(-Math.PI / 2);
-    // roomsComposition.rotateY(-Math.PI / 2);
-
-    // scene.addSceneObject(roomsComposition);
-    // scene.addTransformationsToLoop([()=>{
-    //   roomsComposition.rotateY(-0.003);
-    // }]);
+    scene.addSceneObject(this.roomsPageScene);
   },
 
-  addScreenMesh() {
-    this.addRoomsPageComposition();
+  addScene() {
+    this.addMainPageScene();
+    // this.addRoomsPageComposition();
   },
 };

@@ -29,7 +29,7 @@ export class Scene3d {
     this.camera = new THREE.PerspectiveCamera(
       cameraConfig.fov || 75,
       cameraConfig.aspect || window.innerWidth / window.innerHeight,
-      cameraConfig.near || 0.1,
+      cameraConfig.near || 10,
       cameraConfig.far || 1000
     );
     this.camera.position.z = cameraConfig.positionZ || 5;
