@@ -36,7 +36,9 @@ export class RoomThreeScene extends RoomScene {
     this.addSnowman();
     this.addRoad();
     this.addRoadBlocks();
+    this.addCompass();
   }
+
   addSnowman() {
     const snowman = new Snowman(this.pageSceneCreator.materialCreator);
     const transform = {
@@ -49,10 +51,12 @@ export class RoomThreeScene extends RoomScene {
     this.pageSceneCreator.setTransformParams(snowman, transform);
     this.addObject(snowman);
   }
+
   addRoad() {
     const road = new Road(this.pageSceneCreator);
     this.addObject(road);
   }
+
   addRoadBlocks() {
     const geometry = new THREE.CylinderGeometry(12, 12, 80, 20);
     const radius = 700;
@@ -78,5 +82,16 @@ export class RoomThreeScene extends RoomScene {
         this.pageSceneCreator.setTransformParams(clone, transform);
         this.addObject(clone);
       });
+  }
+
+  addCompass() {
+    this.pageSceneCreator.createObjectMesh(
+      {
+        name: OBJECT_ELEMENTS.compass,
+      },
+      (obj) => {
+        this.addObject(obj);
+      }
+    );
   }
 }
