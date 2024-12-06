@@ -37,6 +37,7 @@ export const sceneController = {
   roomsPageScene: null,
   clearScene() {
     scene.clearScene();
+    animationManager.clearAnimations();
   },
 
   addMainPageScene() {
@@ -67,14 +68,16 @@ export const sceneController = {
     );
 
     if (!this.roomsPageScene) {
-      this.roomsPageScene = new RoomsPageScene(pageSceneCreator, scene);
+      this.roomsPageScene = new RoomsPageScene(
+        pageSceneCreator,
+        animationManager
+      );
     }
 
     scene.addSceneObject(this.roomsPageScene);
   },
 
   addScene() {
-    this.addMainPageScene();
-    // this.addRoomsPageComposition();
+    this.addRoomsPageScene();
   },
 };
