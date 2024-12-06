@@ -1,3 +1,4 @@
+// import * as THREE from 'three';
 import { scene } from "./initAnimationScreen";
 import { SvgLoader } from "./svg-objects/svg-insert";
 import { EXTRUDE_SETTINGS, SVG_ELEMENTS } from "../../helpers/constants";
@@ -8,7 +9,7 @@ import { ObjectsCreator } from "./object-creator";
 import { TransformationGuiHelper } from "../../helpers/transformation-gui-helper";
 import { PageSceneCreator } from "./page-scene-creator";
 import { degreesToRadians } from "../../helpers/utils";
-import { RoomsPageScene } from "./rooms/rooms-scene";
+import { RoomsPageScene } from "./rooms/story-screen";
 import { LatheGeometryCreator } from "./lathe-geometry";
 
 const materialCreator = new MaterialCreator();
@@ -43,6 +44,7 @@ export const sceneController = {
     const positionY = 700;
 
     scene.camera.position.set(0, positionY, positionZ);
+    scene.lightGroup.position.set(0, positionY, positionZ);
 
     scene.controls.target.set(
       0,
@@ -50,18 +52,20 @@ export const sceneController = {
       0
     );
 
-    const roomsComposition = new RoomsPageScene(pageSceneCreator);
+    // const roomsComposition = new RoomsPageScene(pageSceneCreator, scene);
+    // scene.addSceneObject(roomsComposition);
 
-    roomsComposition.rotateY(-Math.PI / 4);
-    roomsComposition.rotateY(-Math.PI / 2);
-    roomsComposition.rotateY(-Math.PI / 2);
+    const roomsPageScene = new RoomsPageScene(pageSceneCreator, scene);
 
-    scene.addSceneObject(roomsComposition);
-    scene.addTransformationsToLoop([
-      () => {
-        roomsComposition.rotateY(-0.003);
-      },
-    ]);
+    scene.addSceneObject(roomsPageScene);
+    // roomsComposition.rotateY(-Math.PI / 4);
+    // roomsComposition.rotateY(-Math.PI / 2);
+    // roomsComposition.rotateY(-Math.PI / 2);
+
+    // scene.addSceneObject(roomsComposition);
+    // scene.addTransformationsToLoop([()=>{
+    //   roomsComposition.rotateY(-0.003);
+    // }]);
   },
 
   addScreenMesh() {

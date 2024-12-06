@@ -40,7 +40,9 @@ export class RoomOneScene extends RoomScene {
     this.addFlower();
     this.addSaturn();
     this.addCarpet();
+    this.addDog();
   }
+
   addFlower() {
     const config = {
       name: SVG_ELEMENTS.flower,
@@ -69,6 +71,7 @@ export class RoomOneScene extends RoomScene {
       this.addObject(obj);
     });
   }
+
   addSaturn() {
     const saturn = new Saturn(this.pageSceneCreator.materialCreator, {
       darkMode: false,
@@ -84,8 +87,26 @@ export class RoomOneScene extends RoomScene {
     this.pageSceneCreator.setTransformParams(saturn, transform);
     this.addObject(saturn);
   }
+
   addCarpet() {
     const carpet = new Carpet(this.pageSceneCreator);
     this.addObject(carpet);
+  }
+
+  addDog() {
+    this.pageSceneCreator.createObjectMesh(
+      {
+        name: OBJECT_ELEMENTS.dog,
+        transform: {
+          transformX: 480,
+          transformZ: 420,
+          rotateY: 1.1,
+          scale: 1,
+        },
+      },
+      (obj) => {
+        this.addObject(obj);
+      }
+    );
   }
 }

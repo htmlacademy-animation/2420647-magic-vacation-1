@@ -4,7 +4,7 @@ import { MATERIAL_TYPE } from "../../../helpers/constants";
 export class Carpet {
   constructor(pageSceneCreator) {
     const geometry = pageSceneCreator.latheGeometryCreator.createGeometry(
-      763,
+      740,
       180,
       3,
       16,

@@ -39,7 +39,9 @@ export class RoomFourScene extends RoomScene {
     this.addFlower();
     this.addDarkSaturn();
     this.addCarpet();
+    this.addSonya();
   }
+
   addFlower() {
     const config = {
       name: SVG_ELEMENTS.flower,
@@ -67,6 +69,7 @@ export class RoomFourScene extends RoomScene {
       this.addObject(obj);
     });
   }
+
   addDarkSaturn() {
     const saturn = new Saturn(this.pageSceneCreator.materialCreator, {
       darkMode: true,
@@ -82,8 +85,25 @@ export class RoomFourScene extends RoomScene {
     this.pageSceneCreator.setTransformParams(saturn, transform);
     this.addObject(saturn);
   }
+
   addCarpet() {
     const carpet = new Carpet(this.pageSceneCreator);
     this.addObject(carpet);
+  }
+
+  addSonya() {
+    this.pageSceneCreator.createObjectMesh(
+      {
+        name: OBJECT_ELEMENTS.sonya,
+        transform: {
+          transformX: 440,
+          transformY: 120,
+          transformZ: 280,
+        },
+      },
+      (obj) => {
+        this.addObject(obj);
+      }
+    );
   }
 }
