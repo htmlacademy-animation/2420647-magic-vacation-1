@@ -30,7 +30,6 @@ export const EXTRUDE_SETTINGS = {
   bevelOffset: 0,
   bevelSegments: 10,
 };
-
 export const SVG_ELEMENTS = {
   flamingo: `flamingo`,
   flower: `flower`,
@@ -38,4 +37,8 @@ export const SVG_ELEMENTS = {
   leaf: `leaf`,
   question: `question`,
   snowflake: `snowflake`,
+};
+
+export const MESH_NAMES = {
+  SaturnRing: `SaturnRing`,
 };

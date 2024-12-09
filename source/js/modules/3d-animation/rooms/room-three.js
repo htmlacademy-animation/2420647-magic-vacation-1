@@ -5,9 +5,13 @@ import { MaterialCreator } from "../material-creator";
 import { Snowman } from "../3d-objects/snowman";
 import { Road } from "../3d-objects/road";
 import { degreesToRadians } from "../../../helpers/utils";
+import Animation from "../../2d-animation/animation-2d";
+import easing from "../../../helpers/easing";
+
 export class RoomThreeScene extends RoomScene {
-  constructor(pageSceneCreator) {
-    super(pageSceneCreator);
+  constructor(pageSceneCreator, animationManager) {
+    super(pageSceneCreator, animationManager);
+
     this.wall = {
       name: OBJECT_ELEMENTS.wallCorner,
       material: this.pageSceneCreator.materialCreator.create(
@@ -29,10 +33,13 @@ export class RoomThreeScene extends RoomScene {
     this.staticOutput = {
       name: OBJECT_ELEMENTS.staticOutput3,
     };
+
     this.constructChildren();
   }
+
   constructChildren() {
     super.constructChildren();
+
     this.addSnowman();
     this.addRoad();
     this.addRoadBlocks();
@@ -42,44 +49,60 @@ export class RoomThreeScene extends RoomScene {
   addSnowman() {
     const snowman = new Snowman(this.pageSceneCreator.materialCreator);
     const transform = {
-      transformX: 210,
-      transformY: 220,
-      transformZ: 400,
-      rotateY: Math.PI / 16,
+      position: {
+        x: 210,
+        y: 220,
+        z: 400,
+      },
+      rotation: {
+        y: Math.PI / 16,
+      },
       scale: 1,
     };
+
     this.pageSceneCreator.setTransformParams(snowman, transform);
+
     this.addObject(snowman);
   }
 
   addRoad() {
     const road = new Road(this.pageSceneCreator);
+
     this.addObject(road);
   }
 
   addRoadBlocks() {
     const geometry = new THREE.CylinderGeometry(12, 12, 80, 20);
+
     const radius = 700;
     const cylindersAmount = 5;
     const angleBetweenBlocks = degreesToRadians(15);
+
     const outerAngle = Math.PI / 2 - angleBetweenBlocks * cylindersAmount;
+
     const cylinder = new THREE.Mesh(
       geometry,
       this.pageSceneCreator.materialCreator.create(MATERIAL_TYPE.SoftMaterial, {
         color: MaterialCreator.Colors.Grey,
       })
     );
+
     new Array(cylindersAmount)
       .fill(0)
       .map((_, index) => outerAngle + index * angleBetweenBlocks)
       .forEach((angle) => {
         const clone = cylinder.clone();
+
         const transform = {
-          transformX: radius * Math.cos(angle),
-          transformY: 40,
-          transformZ: radius * Math.sin(angle),
+          position: {
+            x: radius * Math.cos(angle),
+            y: 40,
+            z: radius * Math.sin(angle),
+          },
         };
+
         this.pageSceneCreator.setTransformParams(clone, transform);
+
         this.addObject(clone);
       });
   }
@@ -89,8 +112,23 @@ export class RoomThreeScene extends RoomScene {
       {
         name: OBJECT_ELEMENTS.compass,
       },
-      (obj) => {
-        this.addObject(obj);
+      (compas) => {
+        compas.traverse((obj) => {
+          if (obj.name === `Compas`) {
+            this.animationManager.addAnimations(
+              new Animation({
+                func: (_, { startTime, currentTime }) => {
+                  obj.rotation.z =
+                    degreesToRadians(10) *
+                    Math.sin((currentTime - startTime) / 1000);
+                },
+                duration: `infinite`,
+                easing: easing.easeInQuad,
+              })
+            );
+          }
+        });
+        this.addObject(compas);
       }
     );
   }
