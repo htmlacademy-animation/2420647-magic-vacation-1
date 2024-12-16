@@ -24,9 +24,10 @@ loading();
 
 export const sceneController = new SceneController();
 
-setTimeout(() => {
+window.addEventListener(`load`, async () => {
+  const isIntroPage = !window.location.hash || window.location.hash === `#top`;
+  await sceneController.initScene(isIntroPage ? 0 : 1);
+  const fullPageScroll = new FullPageScroll();
+  fullPageScroll.init();
   document.body.classList.add(`loaded`);
-}, 2000);
-
-const fullPageScroll = new FullPageScroll();
-fullPageScroll.init();
+});

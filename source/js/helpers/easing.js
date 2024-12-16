@@ -36,6 +36,7 @@ let easing = Object.freeze({
   easeInCubic,
   easeOutCubic,
   easeInOutSine,
+  easeInQuad,
 });
 
 export default easing;

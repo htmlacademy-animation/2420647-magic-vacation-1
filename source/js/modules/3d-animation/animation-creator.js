@@ -2,7 +2,6 @@ import Animation from "../2d-animation/animation-2d";
 import easing from "../../helpers/easing";
 
 function getCurrentTransformPropertyByName(
-  obj,
   propertyName,
   propertyDirection,
   transformFrom,
@@ -26,6 +25,7 @@ function getCurrentTransformPropertyByName(
 
 export function createObjectTransformAnimation(obj, transformTo, config) {
   let transformFrom;
+
   return new Animation({
     func: (progress) => {
       if (!transformFrom) {
@@ -84,11 +84,9 @@ export function createObjectTransformAnimation(obj, transformTo, config) {
     ...config,
   });
 }
-
 export function createBounceAnimation(obj) {
   const amplitude = 0.3 + Math.random() / 1.5;
   const period = 700 + 300 * Math.random();
-
   return new Animation({
     func: (_, { startTime, currentTime }) => {
       obj.position.y =

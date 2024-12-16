@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader";
 import { color3D } from "../../../helpers/3d-data";
 import { reflection3D } from "../../../helpers/3d-data";
+
 const mapSvgForms = {
   keyHole: {
     src: `./img/module-6/svg-forms/keyhole.svg`,
@@ -90,6 +91,7 @@ export default class SvgLoader {
           metalness: mapSvgForms[this.name].metalness,
           roughness: mapSvgForms[this.name].roughness,
         });
+
         const shapes = path.toShapes(false);
         for (let j = 0; j < shapes.length; j++) {
           const shape = shapes[j];

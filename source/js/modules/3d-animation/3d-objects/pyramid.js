@@ -1,4 +1,5 @@
 import * as THREE from "three";
+
 export class Pyramid extends THREE.Group {
   constructor(options) {
     super();
@@ -7,17 +8,20 @@ export class Pyramid extends THREE.Group {
     this.roughness = options.roughness;
     this.constructChildren();
   }
+
   constructChildren() {
     this.addPyramid();
   }
+
   addPyramid() {
     const material = new THREE.MeshStandardMaterial({
       color: new THREE.Color(this.pyramidColor),
       metalness: this.metalness,
       roughness: this.roughness,
     });
-    const geometry = new THREE.ConeGeometry(Math.hypot(220, 220) / 3, 200, 4);
+    const geometry = new THREE.ConeGeometry(Math.hypot(250, 250) / 2, 280, 4);
     const mesh = new THREE.Mesh(geometry, material);
+
     this.add(mesh);
   }
 }
