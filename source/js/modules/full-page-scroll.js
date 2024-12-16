@@ -2,8 +2,7 @@ import throttle from "lodash/throttle";
 import gameTimer from "./game-timer";
 import prizesCounter from "./prizes-counter";
 import { plainMeshController } from "./3d-animation/plainMeshController";
-import { scene } from "./3d-animation/initAnimationScreen";
-import { sceneController } from "./3d-animation/sceneController";
+import { sceneController } from "../script";
 
 export default class FullPageScroll {
   constructor() {
@@ -115,14 +114,18 @@ export default class FullPageScroll {
     const prevActiveScreen = document.querySelector(`.screen.active`);
     const nextActiveScreen = this.screenElements[this.activeScreen];
 
-    scene.clearScene();
+    const isIntroPage = nextActiveScreen.classList.contains(`screen--intro`);
+    const isStoryPage = nextActiveScreen.classList.contains(`screen--story`);
 
-    if (nextActiveScreen.classList.contains(`screen--intro`)) {
-      sceneController.addScene();
-    } else if (nextActiveScreen.classList.contains(`screen--story`)) {
-      plainMeshController.addScreenMesh(`story`).then(() => {
-        plainMeshController.setStoryActiveMesh();
-      });
+    if (isIntroPage || isStoryPage) {
+      if (!sceneController.isInit) {
+        sceneController.initScene(isIntroPage ? 0 : 1);
+      }
+      if (isIntroPage) {
+        sceneController.showMainScene();
+      } else if (isStoryPage) {
+        sceneController.showRoomScene();
+      }
     }
 
     if (

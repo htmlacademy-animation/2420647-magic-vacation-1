@@ -9,6 +9,7 @@ import form from "./modules/form.js";
 import social from "./modules/social.js";
 import FullPageScroll from "./modules/full-page-scroll";
 import loading from "./modules/loading";
+import { SceneController } from "./modules/3d-animation/sceneController";
 
 // init modules
 mobileHeight();
@@ -20,6 +21,12 @@ result();
 form();
 social();
 loading();
+
+export const sceneController = new SceneController();
+
+setTimeout(() => {
+  document.body.classList.add(`loaded`);
+}, 2000);
 
 const fullPageScroll = new FullPageScroll();
 fullPageScroll.init();

@@ -1,13 +1,12 @@
 import Swiper from "swiper";
 //import sceneStory from "./3d-animation/3d-scene-story";
-import { plainMeshController } from "./3d-animation/plainMeshController";
+import { sceneController } from "../script";
 
 export default () => {
   let storySlider;
   let body = document.getElementsByTagName("body")[0];
 
   const setSlider = function () {
-    plainMeshController.setStoryActiveMesh();
     const updateBackgroundAndClass = () => {
       body.className = body.className
         .split(" ")
@@ -19,22 +18,22 @@ export default () => {
 
       // Update the background image
       if (storySlider.activeIndex === 0 || storySlider.activeIndex === 1) {
-        plainMeshController.setStoryActiveMesh(0);
+        sceneController.showRoomScene(1);
       } else if (
         storySlider.activeIndex === 2 ||
         storySlider.activeIndex === 3
       ) {
-        plainMeshController.setStoryActiveMesh(1);
+        sceneController.showRoomScene(2);
       } else if (
         storySlider.activeIndex === 4 ||
         storySlider.activeIndex === 5
       ) {
-        plainMeshController.setStoryActiveMesh(2);
+        sceneController.showRoomScene(3);
       } else if (
         storySlider.activeIndex === 6 ||
         storySlider.activeIndex === 7
       ) {
-        plainMeshController.setStoryActiveMesh(3);
+        sceneController.showRoomScene(4);
       }
     };
 

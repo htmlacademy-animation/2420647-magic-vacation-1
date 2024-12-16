@@ -36,13 +36,16 @@ export class Scene3d {
   }
 
   initRenderer() {
+    const devicePixelRatio = window.devicePixelRatio;
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvasElement,
       alpha: true,
+      antialias: devicePixelRatio <= 1,
+      powerPreference: `high-performance`,
     });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio);
-
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
     if (window.innerWidth > 768) {
       this.renderer.shadowMap.enabled = true;
     }
@@ -52,7 +55,7 @@ export class Scene3d {
     this.lightGroup = new THREE.Group();
 
     const color = new THREE.Color(`rgb(255,255,255)`);
-    const intensity = 0.84;
+    const intensity = 1.84;
 
     const mainLight = new THREE.DirectionalLight(color, intensity);
     const directionalLightTargetObject = new THREE.Object3D();
@@ -67,18 +70,18 @@ export class Scene3d {
     mainLight.target = directionalLightTargetObject;
 
     const frontLight = this.createPointLight(
-      [-785, -350, -710],
+      [-785, -350, -510],
       new THREE.Color(`rgb(246,242,255)`),
       1.6,
-      3000,
+      5000,
       0.2
     );
 
     const topLight = this.createPointLight(
-      [730, 800, -985],
+      [730, 800, -785],
       new THREE.Color(`rgb(245,254,255)`),
       0.95,
-      3000,
+      5000,
       0.1
     );
 
@@ -96,8 +99,8 @@ export class Scene3d {
     );
 
     light.castShadow = true;
-    light.shadow.mapSize.width = 512;
-    light.shadow.mapSize.height = 512;
+    light.shadow.mapSize.width = 1512;
+    light.shadow.mapSize.height = 1512;
     light.shadow.camera.near = 0.5;
     light.shadow.camera.far = distance;
     light.position.set(position[0], position[1], position[2]);

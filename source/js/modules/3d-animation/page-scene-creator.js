@@ -23,11 +23,11 @@ export class PageSceneCreator {
 
       if (config.transform) {
         if (config.enableGui) {
-          this.transformationGuiHelper.addNewFolder(
-            config.name,
-            obj,
-            config.transform
-          );
+          // this.transformationGuiHelper.addNewFolder(
+          //     config.name,
+          //     obj,
+          //     config.transform
+          // );
         }
 
         this.setTransformParams(obj, config.transform);
@@ -41,11 +41,11 @@ export class PageSceneCreator {
     this.extrudeSvgCreator.create(config.name, config.extrude, (obj) => {
       if (config.transform) {
         if (config.enableGui) {
-          this.transformationGuiHelper.addNewFolder(
-            config.name,
-            obj,
-            config.transform
-          );
+          // this.transformationGuiHelper.addNewFolder(
+          //     config.name,
+          //     obj,
+          //     config.transform
+          // );
         }
         this.setTransformParams(obj, config.transform);
       }
