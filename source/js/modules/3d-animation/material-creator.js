@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { RoadCustomMaterial } from "./3d-objects/road-custom-material";
 import { CarpetCustomMaterial } from "./3d-objects/carpet-custom-material";
 import { MATERIAL_TYPE } from "../../helpers/constants";
+
 export class MaterialCreator {
   create(materialType, config) {
     switch (materialType) {
@@ -59,6 +60,7 @@ export class MaterialCreator {
     return new CarpetCustomMaterial(config);
   }
 }
+
 MaterialCreator.Colors = {
   Blue: `rgb(51, 113, 235)`,
   BrightBlue: `rgb(47, 58, 201)`,

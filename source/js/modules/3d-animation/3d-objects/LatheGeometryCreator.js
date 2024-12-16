@@ -1,11 +1,13 @@
 import * as THREE from "three";
 import { degreesToRadians } from "../../../helpers/utils";
+
 export class LatheGeometryCreator {
   createCarpet() {
     const geometry = this.createGeometry(763, 180, 3, 16, 74);
     const material = new THREE.MeshBasicMaterial({
       color: 0xa885d6,
     });
+
     return new THREE.Mesh(geometry, material);
   }
   createRoad() {
@@ -13,6 +15,7 @@ export class LatheGeometryCreator {
     const material = new THREE.MeshBasicMaterial({
       color: 0x656d7c,
     });
+
     return new THREE.Mesh(geometry, material);
   }
   createGeometry(innerRadius, width, height, angleStart, angleEnd) {

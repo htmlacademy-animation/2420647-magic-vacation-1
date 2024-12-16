@@ -9,14 +9,17 @@ export class CarpetCustomMaterial extends THREE.MeshStandardMaterial {
         new THREE.Color(color3D.AdditionalPurple)
       ),
     };
+
     shader.vertexShader = shader.vertexShader.replace(
       `#include <uv_pars_vertex>`,
       `varying vec2 vUv;`
     );
+
     shader.vertexShader = shader.vertexShader.replace(
       `#include <uv_vertex>`,
       `vUv = uv;`
     );
+
     shader.fragmentShader = shader.fragmentShader.replace(
       `varying vec3 vViewPosition;`,
       `varying vec3 vViewPosition;
@@ -24,6 +27,7 @@ export class CarpetCustomMaterial extends THREE.MeshStandardMaterial {
         uniform vec3 mainColor;
         uniform vec3 additionalColor;`
     );
+
     shader.fragmentShader = shader.fragmentShader.replace(
       `#include <map_fragment>`,
       `float strength = mod(vUv.x * 3.5, 1.0);
