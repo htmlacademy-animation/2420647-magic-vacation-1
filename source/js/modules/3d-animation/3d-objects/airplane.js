@@ -24,7 +24,7 @@ export class Airplane extends THREE.Group {
       ),
     };
 
-    this._flightRadius = 100;
+    this._flightRadius = 50;
     this._flightRadiusChanged = true;
 
     this._flightHeight = -100;

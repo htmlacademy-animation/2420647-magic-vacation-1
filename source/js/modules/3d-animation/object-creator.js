@@ -22,6 +22,7 @@ export class ObjectsCreator {
     return new Promise((resolve) => {
       const onComplete = (obj3d) => {
         this.objects[name] = obj3d;
+        obj3d.name = name;
 
         resolve(obj3d);
       };
