@@ -1,11 +1,12 @@
 import * as THREE from "three";
 import { degreesToRadians } from "../../../helpers/utils";
 import { MaterialCreator } from "../material-creator";
-import { MATERIAL_TYPE } from "../../../helpers/constants";
+import { MATERIAL_TYPE, MESH_NAMES } from "../../../helpers/constants";
 
 export class Saturn extends THREE.Group {
   constructor(materialCreator, options) {
     super();
+    this.name = MESH_NAMES.Saturn;
     this.materialCreator = materialCreator;
     this.options = options;
     this.constructChildren();
