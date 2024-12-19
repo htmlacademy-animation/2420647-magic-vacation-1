@@ -466,6 +466,7 @@ export class MainPageComposition extends THREE.Group {
           suitcasePositionWrapper.position.y = 70 - 220 * progress;
           suitcasePositionWrapper.position.z = 60 + progress * 60;
         },
+
         duration: 600,
         delay: 1000,
         easing: easing.easeInOutSine,
