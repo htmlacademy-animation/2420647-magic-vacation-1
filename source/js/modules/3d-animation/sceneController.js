@@ -19,6 +19,12 @@ import { CameraRigMobile } from "./rig/camera-mobile";
 import easing from "../../helpers/easing";
 import { createObjectTransformAnimation } from "./animation-creator";
 import { degreesToRadians } from "../../helpers/utils";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
+import vertexShader from "../shaders/custom-vertex-shader.glsl";
+import fragmentShader from "../shaders/custom-fragment-shader.glsl";
+import Animation from "../2d-animation/animation-2d";
 
 const textureLoader = new THREE.TextureLoader();
 const materialCreator = new MaterialCreator(textureLoader);
@@ -47,11 +53,13 @@ export class SceneController {
     this.mouseMoveHandler = this.mouseMoveHandler.bind(this);
     this.touchMoveHandler = this.touchMoveHandler.bind(this);
     this.onResize = this.onResize.bind(this);
-
     window.addEventListener(`resize`, this.onResize);
+    this.setBubbleComposer();
   }
 
   onResize() {
+    this.bubbleEffectPass.material.uniforms.aspectRatio.value =
+      window.innerWidth / window.innerHeight;
     this.addCameraRig();
   }
 
@@ -92,6 +100,35 @@ export class SceneController {
     await this.roomsPageScene.constructChildren();
     this.roomsPageScene.position.set(0, -200, 0);
     scene.addSceneObject(this.roomsPageScene);
+  }
+
+  initBubbleComposer() {
+    const composer = new EffectComposer(scene.renderer);
+
+    composer.setPixelRatio(scene.devicePixelRation);
+
+    const renderPass = new RenderPass(scene.scene, scene.camera);
+
+    const effectMaterial = this.getEffectMaterial();
+
+    this.addBubbleAnimation(effectMaterial);
+
+    this.bubbleEffectPass = new ShaderPass(effectMaterial, `map`);
+
+    composer.addPass(renderPass);
+    composer.addPass(this.bubbleEffectPass);
+
+    return composer;
+  }
+
+  setBubbleComposer() {
+    this.bubbleComposer = this.initBubbleComposer();
+
+    scene.setRenderer(this.bubbleComposer);
+  }
+
+  removeBubbleComposer() {
+    scene.resetRender();
   }
 
   async initSuitCase() {
@@ -263,6 +300,7 @@ export class SceneController {
   }
 
   showMainScene() {
+    this.bubbleEffectPass.enabled = false;
     this.sceneIndex = 0;
 
     this.unsubscribeScreenMove();
@@ -286,7 +324,7 @@ export class SceneController {
       return;
     }
     this.sceneIndex = nextRoomIndex || this.previousRoomIndex;
-
+    this.bubbleEffectPass.enabled = false;
     this.unsubscribeScreenMove();
     if (typeof nextRoomIndex === `number`) {
       this.previousRoomIndex = nextRoomIndex;
@@ -299,6 +337,9 @@ export class SceneController {
       ),
       () => {
         this.subscribeScreenMove();
+        if (this.sceneIndex === 2) {
+          this.bubbleEffectPass.enabled = true;
+        }
       }
     );
     animationManager.startRoomAnimations(this.sceneIndex - 1);
@@ -364,6 +405,106 @@ export class SceneController {
 
     movePitchRotationCloserToTarget(
       targetPitchRotation > this.cameraRig.pitchRotation
+    );
+  }
+
+  getEffectMaterial(texture) {
+    return new THREE.RawShaderMaterial({
+      uniforms: {
+        map: new THREE.Uniform(texture),
+        aspectRatio: new THREE.Uniform(window.innerWidth / window.innerHeight),
+        timestamp: new THREE.Uniform(0),
+        bubble1: new THREE.Uniform({
+          bubblePosition: new THREE.Vector2(0, -2 * 0.07),
+          bubbleRadius: 0.06,
+          startTime: 0,
+          startPositionX: 0.3,
+          delay: 600,
+          getPositionX(time) {
+            return (
+              this.startPositionX +
+              0.02 * Math.exp(-0.05 * time) * Math.sin(Math.PI * time * 2.5)
+            );
+          },
+          getPositionY: (y) => y + 0.005,
+        }),
+        bubble2: new THREE.Uniform({
+          bubblePosition: new THREE.Vector2(0, -2 * 0.06),
+          bubbleRadius: 0.07,
+          startTime: 0,
+          startPositionX: 0.4,
+          delay: 0,
+          getPositionX(time) {
+            return (
+              this.startPositionX +
+              0.03 * Math.exp(-0.05 * time) * Math.sin(Math.PI * time * 2.5)
+            );
+          },
+          getPositionY: (y) => y + 0.005,
+        }),
+        bubble3: new THREE.Uniform({
+          bubblePosition: new THREE.Vector2(0, -2 * 0.04),
+          bubbleRadius: 0.04,
+          startPositionX: 0.5,
+          startTime: 0,
+          delay: 1000,
+          getPositionX(time) {
+            return (
+              this.startPositionX +
+              0.01 * Math.exp(-0.05 * time) * Math.sin(Math.PI * time * 2)
+            );
+          },
+          getPositionY: (y) => y + 0.006,
+        }),
+        hasBubbles: new THREE.Uniform(false),
+      },
+      defines: {
+        BUBBLE_LINE_WIDTH: 0.002,
+      },
+      vertexShader,
+      fragmentShader,
+    });
+  }
+
+  addBubbleAnimation(material) {
+    const bubble1 = material.uniforms.bubble1.value;
+    const bubble2 = material.uniforms.bubble2.value;
+    const bubble3 = material.uniforms.bubble3.value;
+
+    animationManager.addRoomsPageAnimations(
+      1,
+      new Animation({
+        func: (_, { startTime, currentTime }) => {
+          material.uniforms.timestamp.value = currentTime;
+
+          material.uniforms.hasBubbles.value = true;
+
+          [bubble1, bubble2, bubble3].forEach((bubble) => {
+            if (!bubble.startTime) {
+              bubble.startTime = startTime;
+            }
+
+            if (currentTime < bubble.startTime + bubble.delay) {
+              return;
+            }
+
+            if (bubble.bubblePosition.y > 1.0 + 2 * bubble.bubbleRadius) {
+              bubble.bubblePosition.y = -2 * bubble.bubbleRadius;
+              bubble.startPositionX = Math.random();
+              bubble.startTime = currentTime;
+            }
+
+            const deltaTime = (currentTime - bubble.startTime) / 1000;
+
+            bubble.bubblePosition.x = bubble.getPositionX(deltaTime);
+            bubble.bubblePosition.y = bubble.getPositionY(
+              bubble.bubblePosition.y
+            );
+          });
+        },
+        duration: `infinite`,
+        easing: easing.easeLinear,
+      })
     );
   }
 }
