@@ -1,49 +1,45 @@
-let timerStarted = false;
+const TIMER_DURATION_SEC = 300;
 
-export default function gameTimer() {
-  if (timerStarted) return;
-  timerStarted = true;
+let timeLeft;
+let drawMinIntervalMs = 1000;
+let now;
+let drawLastTime = Date.now();
+let elapsed;
+let runningAnimation = null;
 
-  const timerElement = document.querySelector(".game__counter");
-  if (!timerElement) return;
+const counterMinutes = document.querySelector(`.js-timer-minutes`);
+const counterSeconds = document.querySelector(`.js-timer-seconds`);
 
-  let minutes = 5;
-  let seconds = 0;
-
-  function updateTimerDisplay() {
-    timerElement.innerHTML = `<span>${String(minutes).padStart(
-      2,
-      "0"
-    )}</span>:<span>${String(seconds).padStart(2, "0")}</span>`;
+function draw() {
+  if (timeLeft > 0) {
+    timeLeft -= 1;
+    const minutes = new Date(timeLeft * 1000).getMinutes();
+    const seconds = new Date(timeLeft * 1000).getSeconds();
+    counterMinutes.textContent = String(minutes).padStart(2, 0);
+    counterSeconds.textContent = String(seconds).padStart(2, 0);
   }
+}
 
-  function countdown() {
-    if (seconds === 0) {
-      if (minutes === 0) {
-        return;
-      }
-      minutes--;
-      seconds = 59;
-    } else {
-      seconds--;
-    }
-    updateTimerDisplay();
-    requestAnimationFrame(checkTime);
+function tick() {
+  now = Date.now();
+  elapsed = now - drawLastTime;
+
+  if (elapsed > drawMinIntervalMs) {
+    drawLastTime = now - (elapsed % drawMinIntervalMs);
+    draw();
   }
-
-  function checkTime() {
-    const now = Date.now();
-    const elapsedTime = now - startTime;
-
-    if (elapsedTime >= 1000) {
-      countdown();
-      startTime = Date.now();
-    } else {
-      requestAnimationFrame(checkTime);
-    }
+  if (timeLeft > 0) {
+    runningAnimation = requestAnimationFrame(tick);
   }
+}
 
-  let startTime = Date.now();
-  updateTimerDisplay();
-  requestAnimationFrame(checkTime);
+export function timerStart() {
+  timeLeft = TIMER_DURATION_SEC;
+  runningAnimation = requestAnimationFrame(tick);
+}
+
+export function stopTimer() {
+  if (runningAnimation) {
+    cancelAnimationFrame(runningAnimation);
+  }
 }

@@ -1,7 +1,12 @@
 import throttle from "lodash/throttle";
-import gameTimer from "./game-timer";
+//import gameTimer from "./game-timer";
+import { timerStart, stopTimer } from "./game-timer";
 import prizesCounter from "./prizes-counter";
 import { sceneController } from "../script";
+import {
+  sonyaStartAnimation,
+  sonyaEndAnimation,
+} from "./3d-animation/animation-sonya";
 
 export default class FullPageScroll {
   constructor() {
@@ -65,7 +70,9 @@ export default class FullPageScroll {
     const activeScreenElement = this.screenElements[this.activeScreen];
 
     if (activeScreenElement.classList.contains("screen--game")) {
-      gameTimer();
+      //gameTimer();
+      timerStart();
+      sonyaStartAnimation();
     }
 
     if (activeScreenElement.classList.contains("screen--prizes")) {
